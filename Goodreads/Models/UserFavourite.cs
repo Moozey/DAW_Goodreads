@@ -2,7 +2,7 @@
 
 namespace Goodreads.Models
 {
-    public class User: BaseEntity
+    public class UserFavourite: BaseEntity
     {
     }
 }

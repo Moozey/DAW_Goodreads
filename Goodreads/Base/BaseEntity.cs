@@ -7,6 +7,6 @@ namespace Goodreads.Base
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
     }
 }
