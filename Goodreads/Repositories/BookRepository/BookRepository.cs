@@ -17,7 +17,7 @@ namespace Goodreads.Repositories.BookRepository
 
         public ICollection<Book> GetAllBooks()
         {
-            return (ICollection<Book>)_entities.Include(book => book.BookGenre);
+            return _context.Books.ToList();
         }
 
 
