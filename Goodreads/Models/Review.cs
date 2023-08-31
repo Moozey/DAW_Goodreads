@@ -6,8 +6,8 @@ namespace Goodreads.Models
 {
     public class Review: BaseEntity
     {
-        public Guid UserID { get; set; }
-        public Guid BookID { get; set; }
+        public Guid UserId { get; set; }
+        public Guid BookId { get; set; }
         public string Title { get; set; }
         public string? ReviewDetails { get; set; }
 
