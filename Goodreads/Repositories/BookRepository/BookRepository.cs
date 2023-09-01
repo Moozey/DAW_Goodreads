@@ -15,7 +15,7 @@ namespace Goodreads.Repositories.BookRepository
           
         }
 
-        public ICollection<Book> GetAllBooks()
+        public async Task<ICollection<Book>> GetAllBooks()
         {
             return _context.Books.ToList();
         }

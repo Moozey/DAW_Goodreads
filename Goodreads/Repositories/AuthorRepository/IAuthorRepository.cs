@@ -11,7 +11,6 @@ namespace Goodreads.Repositories.AuthorRepository
 
         //Get an author with all his books
         Task<IEnumerable<Author>> GetAuthorWithBooksByNameAsync(string AuthorFirstName, string AuthorLastName);
-
-        
+        Task<Author> GetById(Guid id);
     }
 }
