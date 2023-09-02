@@ -8,6 +8,7 @@ using System.IO;
 using Goodreads.Services.BookService;
 using Goodreads.Services.AuthorService;
 using System.Diagnostics;
+using System.Data;
 
 namespace Goodreads.Controllers
 {
@@ -31,20 +32,20 @@ namespace Goodreads.Controllers
         
 
         [HttpGet("{id}", Name = "GetAuthorById")]
-        public ActionResult<Author> GetDirectorById(Guid id)
+        public ActionResult<Author> GetAuthorById(Guid id)
         {
-            var director = _authorService.getAuthorById2(id);
-            if (director == null)
+            var author = _authorService.getAuthorById2(id);
+            if (author == null)
             {
                 return NotFound();
             }
             System.Diagnostics.Debug.WriteLine("afterthis");
-            return Ok(director);
+            return Ok(author);
         }
 
 
         [HttpPost("CreateAuthor")]
-        public async Task<IActionResult> CreateBook(AuthorDTO authorDTO)
+        public async Task<IActionResult> CreateAuthor(AuthorDTO authorDTO)
         {
             var newAuthor = new Author();
             newAuthor.FirstName = authorDTO.FirstName;
@@ -70,6 +71,20 @@ namespace Goodreads.Controllers
 
             return Ok();
         }
-        
+
+        [HttpPut("updateAuthor/{id}")]
+        public IActionResult UpdateAuthor(Guid id, AuthorDTO author)
+        {
+            var authorToUpdate = _authorService.getAuthorById2(id);
+            if (authorToUpdate == null)
+            {
+                return BadRequest("The author ID was not found!");
+            }
+            authorToUpdate.FirstName = author.FirstName;
+            authorToUpdate.LastName = author.LastName;
+            _authorService.Save();
+            return Ok();
+        }
+
     }
 }

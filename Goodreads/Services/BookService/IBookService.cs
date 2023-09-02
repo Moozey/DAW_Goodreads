@@ -9,7 +9,7 @@ namespace Goodreads.Services.BookService
         Task<ICollection<Book>> GetAllBooks();
         Task<Book> AddBook(BookDTO newBook);
         Task DeleteBook(Book bookToDelete);
-        Task<Book> UpdateBook(BookDTO bookToUpdate, Guid id);
+        Task<Book> UpdateBookService(BookDTO bookToUpdate, Guid id);
         bool Save();
 
     }

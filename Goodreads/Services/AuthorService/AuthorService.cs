@@ -57,7 +57,7 @@ namespace Goodreads.Services.AuthorService
             author.LastName = updatedAuthor.LastName;
 
             _authorRepository.Update(author);
-            await _authorRepository.SaveAsync();
+            _authorRepository.SaveAsync();
 
             return author;
         }

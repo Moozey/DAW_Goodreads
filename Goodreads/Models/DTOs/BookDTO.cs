@@ -6,9 +6,8 @@ namespace Goodreads.Models.DTOs
     {
         [Required]
         public string BookTitle { get; set; }
-        [Required]
-        public Author Author { get; set; }
         public string BookDescription { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public Guid AuthorId { get; set; }
     }
 }

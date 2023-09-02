@@ -46,11 +46,10 @@ namespace Goodreads.Services.BookService
         public async Task DeleteBook(Book bookToDelete)
         {
             _bookRepository.Delete(bookToDelete);
-            await _bookRepository.SaveAsync();
         }
 
 
-        public async Task<Book> UpdateBook(BookDTO bookToUpdate, Guid id)
+        public async Task<Book> UpdateBookService(BookDTO bookToUpdate, Guid id)
         {
             var book = _bookRepository.FindById(id);
             if (book == null)
