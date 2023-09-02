@@ -1,4 +1,5 @@
 using Goodreads.Data;
+using Goodreads.Helpers.Extensions;
 using Goodreads.Repositories.BookRepository;
 using Goodreads.Services.BookService;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +16,9 @@ builder.Services.AddDbContext<GoodreadsContext>(option => option.UseSqlServer(bu
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//repositories
-builder.Services.AddTransient<IBookRepository, BookRepository>();
-builder.Services.AddTransient<IBookService, BookService>();
+//repositories + services
+builder.Services.AddRepositories();
+builder.Services.AddServices();
 
 
 var app = builder.Build();
