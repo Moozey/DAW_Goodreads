@@ -1,6 +1,8 @@
-﻿using Goodreads.Models;
+﻿using Goodreads.Data.UnitOfWork;
+using Goodreads.Models;
 using Goodreads.Models.DTOs;
 using Goodreads.Repositories.AuthorRepository;
+using Microsoft.EntityFrameworkCore;
 using System.IO;
 
 namespace Goodreads.Services.AuthorService
@@ -25,14 +27,11 @@ namespace Goodreads.Services.AuthorService
             return author;
         }
 
-        public async Task DeleteAuthorById(Guid id)
+
+        public async Task DeleteAuthor(Author authorToDelete)
         {
-            var authorToDelete = await GetAuthorById(id);
-            if (authorToDelete != null)
-            {
-                _authorRepository.Delete(authorToDelete);
-                await _authorRepository.SaveAsync();
-            }
+            _authorRepository.Delete(authorToDelete);
+           
         }
 
         public async Task<IEnumerable<Author>> GetAllAuthors()
@@ -40,14 +39,15 @@ namespace Goodreads.Services.AuthorService
             return await _authorRepository.GetAllAuthors();
         }
 
-        public async Task<Author> GetAuthorById(Guid id)
+        
+        public Author getAuthorById2(Guid id)
         {
-            return await _authorRepository.GetById(id);
+            return _authorRepository.GetById2(id);
         }
 
         public async Task<Author> UpdateAuthorById(AuthorDTO updatedAuthor, Guid id)
         {
-            var author = await _authorRepository.GetById(id);
+            var author =  _authorRepository.GetById2(id);
             if (author == null)
             {
                 throw new ArgumentException("Author not found");
@@ -63,7 +63,7 @@ namespace Goodreads.Services.AuthorService
         }
         public bool Save()
         {
-            return _authorRepository.SaveAsync().Result;
+            return _authorRepository.Save();
         }
 
     }

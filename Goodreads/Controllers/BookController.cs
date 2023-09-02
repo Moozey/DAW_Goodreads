@@ -1,6 +1,7 @@
 ﻿using Goodreads.Data;
 using Goodreads.Models;
 using Goodreads.Models.DTOs;
+using Goodreads.Services.BookService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ namespace Goodreads.Controllers
     public class BookController : ControllerBase
     {
         private GoodreadsContext _goodreadsContext;
+        private readonly IBookService _bookService;
         public BookController(GoodreadsContext goodreadsContext) 
         {
             _goodreadsContext = goodreadsContext;
@@ -45,5 +47,8 @@ namespace Goodreads.Controllers
             await _goodreadsContext.SaveChangesAsync();
             return Ok(newBook);
         }
+
+        
+
     }
 }

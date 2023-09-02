@@ -1,6 +1,8 @@
-﻿using Goodreads.Models;
+﻿using Goodreads.Data;
+using Goodreads.Models;
 using Goodreads.Models.DTOs;
 using Goodreads.Repositories.BookRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Goodreads.Services.BookService
 {
@@ -17,6 +19,7 @@ namespace Goodreads.Services.BookService
         {
             return _bookRepository.FindById(id);
         }
+
         public async Task<ICollection<Book>> GetAllBooks()
         {
             return await _bookRepository.GetAllBooks();

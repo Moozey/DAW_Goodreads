@@ -15,6 +15,11 @@ namespace Goodreads.Repositories.BookRepository
           
         }
 
+        public Book FindById(Guid id)
+        {
+            return _context.Books.FirstOrDefault(b => b.Id == id);
+        }
+
         public async Task<ICollection<Book>> GetAllBooks()
         {
             return _context.Books.ToList();

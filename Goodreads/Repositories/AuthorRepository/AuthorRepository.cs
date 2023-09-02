@@ -27,15 +27,10 @@ namespace Goodreads.Repositories.AuthorRepository
                 throw ex;
             }
         }
-
-        //public async Task<IEnumerable<Author>> GetAuthorWithBooksByNameAsync(string AuthorFirstName, string AuthorLastName)
-        //{
-        //    var authorsWithBooks = from a in _entities
-        //                           where a.FirstName == AuthorFirstName && a.LastName == AuthorLastName
-        //                           select a;
-
-        //    return (ICollection<Author>)authorsWithBooks;
-        //}
+        public Author GetById2(Guid id)
+        {
+            return _entities.Find(id);
+        }
 
         public async Task<IEnumerable<Author>> GetAuthorWithBooksByNameAsync(string AuthorFirstName, string AuthorLastName)
         {
@@ -60,17 +55,7 @@ namespace Goodreads.Repositories.AuthorRepository
             }
         }
 
-        public async Task<Author> GetById(Guid id)
-        {
-            try
-            {
-                var author = await _context.Authors.FirstOrDefaultAsync(a => a.Id == id);
-                return author;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+       
+        
     }
 }

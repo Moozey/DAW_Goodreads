@@ -4,6 +4,10 @@ using Goodreads.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using Goodreads.Services.BookService;
+using Goodreads.Services.AuthorService;
+using System.Diagnostics;
 
 namespace Goodreads.Controllers
 {
@@ -12,9 +16,11 @@ namespace Goodreads.Controllers
     public class AuthorController : ControllerBase
     {
         private GoodreadsContext _goodreadsContext;
-        public AuthorController(GoodreadsContext goodreadsContext)
+        private readonly IAuthorService _authorService;
+        public AuthorController(GoodreadsContext goodreadsContext, IAuthorService authorService)
         {
             _goodreadsContext = goodreadsContext;
+            _authorService = authorService;
         }
 
         [HttpGet("getAuthors")]
@@ -22,13 +28,18 @@ namespace Goodreads.Controllers
         {
             return Ok(await _goodreadsContext.Authors.ToListAsync());
         }
-        [HttpGet("authorById/{id}")]
-        public async Task<IActionResult> GetAuthorById([FromRoute] Guid id)
+        
+
+        [HttpGet("{id}", Name = "GetAuthorById")]
+        public ActionResult<Author> GetDirectorById(Guid id)
         {
-            var authorById = from author in _goodreadsContext.Authors
-                           where author.Id == id
-                           select author;
-            return Ok(authorById);
+            var director = _authorService.getAuthorById2(id);
+            if (director == null)
+            {
+                return NotFound();
+            }
+            System.Diagnostics.Debug.WriteLine("afterthis");
+            return Ok(director);
         }
 
 
@@ -45,5 +56,20 @@ namespace Goodreads.Controllers
             await _goodreadsContext.SaveChangesAsync();
             return Ok(newAuthor);
         }
+
+        [HttpDelete("authorById/{id}")]
+        public ActionResult DeleteAuthorById(Guid id)
+        {
+            var authorToDelete = _authorService.getAuthorById2(id);
+            if (authorToDelete == null)
+            {
+                return BadRequest("The book ID was not found!");
+            }
+            _authorService.DeleteAuthor(authorToDelete);
+            _authorService.Save();
+
+            return Ok();
+        }
+        
     }
 }

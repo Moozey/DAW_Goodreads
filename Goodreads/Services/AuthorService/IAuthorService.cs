@@ -7,9 +7,9 @@ namespace Goodreads.Services.AuthorService
     public interface IAuthorService
     {
         Task<Author> AddAuthor(AuthorDTO newAuthor);
-        Task DeleteAuthorById(Guid id);
         Task<IEnumerable<Author>> GetAllAuthors();
-        Task<Author> GetAuthorById(Guid id);
+        Author getAuthorById2(Guid id);
+        Task DeleteAuthor(Author authorToDelete);
         Task<Author> UpdateAuthorById(AuthorDTO updatedAuthor, Guid id);
         bool Save();
     }
