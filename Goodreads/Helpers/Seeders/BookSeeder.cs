@@ -29,7 +29,7 @@ namespace Goodreads.Helpers.Seeders
                     existingAuthorBook1 = new Author
                     {
                         FirstName = "Ion",
-                        LastName = "creanga",
+                        LastName = "Creanga",
                         DateOfBirth = new DateTime(1837, 3, 1),
                         Nationality = "Romania"
                     };
