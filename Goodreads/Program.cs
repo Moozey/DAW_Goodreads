@@ -1,5 +1,6 @@
 using Goodreads.Data;
 using Goodreads.Helpers.Extensions;
+using Goodreads.Helpers.Seeders;
 using Goodreads.Repositories.BookRepository;
 using Goodreads.Services.BookService;
 using Microsoft.EntityFrameworkCore;
@@ -19,10 +20,11 @@ builder.Services.AddSwaggerGen();
 //repositories + services
 builder.Services.AddRepositories();
 builder.Services.AddServices();
+builder.Services.AddSeeders();
 
 
 var app = builder.Build();
-
+SeedData(app);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -37,3 +39,17 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+void SeedData(IHost app)
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+    using (var scope = scopedFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<BookSeeder>();
+        service.SeedInitialBooks();
+
+        var service1 = scope.ServiceProvider.GetService<AuthorSeeder>();
+        service1.SeedInitialAuthors();
+    }
+}

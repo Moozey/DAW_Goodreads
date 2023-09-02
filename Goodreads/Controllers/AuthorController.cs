@@ -22,6 +22,14 @@ namespace Goodreads.Controllers
         {
             return Ok(await _goodreadsContext.Authors.ToListAsync());
         }
+        [HttpGet("authorById/{id}")]
+        public async Task<IActionResult> GetAuthorById([FromRoute] Guid id)
+        {
+            var authorById = from author in _goodreadsContext.Authors
+                           where author.Id == id
+                           select author;
+            return Ok(authorById);
+        }
 
 
         [HttpPost("CreateAuthor")]

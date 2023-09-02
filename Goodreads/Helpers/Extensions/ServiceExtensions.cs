@@ -1,4 +1,5 @@
-﻿using Goodreads.Repositories.AuthorRepository;
+﻿using Goodreads.Helpers.Seeders;
+using Goodreads.Repositories.AuthorRepository;
 using Goodreads.Repositories.BookRepository;
 using Goodreads.Services.AuthorService;
 using Goodreads.Services.BookService;
@@ -18,6 +19,14 @@ namespace Goodreads.Helpers.Extensions
         {
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IAuthorService, AuthorService>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddSeeders(this IServiceCollection services)
+        {
+            services.AddTransient<AuthorSeeder>();
+            services.AddTransient<BookSeeder>();
 
             return services;
         }
