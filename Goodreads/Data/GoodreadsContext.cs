@@ -14,7 +14,7 @@ namespace Goodreads.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<BookGenre> BookGenres { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserFavourite> UserFavourites { get; set; }
+        public DbSet<UserPrivateDetails> UserPrivateDetails { get; set; }
 
 
         public GoodreadsContext(DbContextOptions<GoodreadsContext> options) : base(options)
@@ -38,8 +38,11 @@ namespace Goodreads.Data
             modelBuilder.Entity<User>()
                 .HasKey(u => u.Id);
 
-            modelBuilder.Entity<UserFavourite>()
-                .HasKey(uf => uf.Id);
+            // one to one
+            modelBuilder.Entity<User>()
+                .HasOne(user => user.UserPrivateDetails)
+                .WithOne(userInfo => userInfo.User)
+                .HasForeignKey<UserPrivateDetails>(userInfo => userInfo.UserId);
 
             //one to many (Author <-> Book)
             modelBuilder.Entity<Author>().

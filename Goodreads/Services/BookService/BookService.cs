@@ -1,4 +1,5 @@
 ﻿using Goodreads.Data;
+using Goodreads.Data.UnitOfWork;
 using Goodreads.Models;
 using Goodreads.Models.DTOs;
 using Goodreads.Repositories.BookRepository;
@@ -9,6 +10,7 @@ namespace Goodreads.Services.BookService
     public class BookService: IBookService
     {
         private readonly IBookRepository _bookRepository;
+        public IUnitOfWork _unitOfWork;
 
         public BookService(IBookRepository bookRepository)
         {
@@ -46,6 +48,8 @@ namespace Goodreads.Services.BookService
         public async Task DeleteBook(Book bookToDelete)
         {
             _bookRepository.Delete(bookToDelete);
+
+            await _unitOfWork.SaveAsync();
         }
 
 

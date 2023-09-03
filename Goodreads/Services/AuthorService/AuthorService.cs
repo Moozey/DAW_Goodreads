@@ -31,7 +31,7 @@ namespace Goodreads.Services.AuthorService
         public async Task DeleteAuthor(Author authorToDelete)
         {
             _authorRepository.Delete(authorToDelete);
-           
+
         }
 
         public async Task<IEnumerable<Author>> GetAllAuthors()
